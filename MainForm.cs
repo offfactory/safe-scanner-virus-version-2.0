@@ -28,6 +28,7 @@ namespace SafeScan
         private readonly ComboBox themeComboBox = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 180 };
         private readonly CheckBox allowLocalAccessCheck = new CheckBox { Text = "Allow local computer access", Checked = true, ForeColor = Color.White, AutoSize = true };
         private readonly CheckBox notificationsCheck = new CheckBox { Text = "Enable notifications", Checked = true, ForeColor = Color.White, AutoSize = true };
+        private readonly CheckBox realTimeProtectionCheck = new CheckBox { Text = "Experimental real-time protection", Checked = false, ForeColor = Color.White, AutoSize = true };
         private readonly NumericUpDown expiryDays = new NumericUpDown { Minimum = 1, Maximum = 365, Value = 30, Width = 80 };
         private readonly Button applySettingsButton = new Button { Text = "Apply Settings", Height = 36, Width = 140, BackColor = Color.FromArgb(0, 120, 215), ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
         private readonly Button googleAuthButton = new Button { Text = "Google Authentication", Height = 36, Width = 180, BackColor = Color.FromArgb(219, 68, 55), ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
@@ -48,6 +49,7 @@ namespace SafeScan
         private readonly ScanHistory scanHistory = new ScanHistory();
         private readonly QuarantineManager quarantineManager = new QuarantineManager();
         private readonly RobloxSecurityChecker robloxSecurityChecker = new RobloxSecurityChecker();
+        private readonly RealTimeProtection realTimeProtection;
         private string[] scanFiles = Array.Empty<string>();
         private int scanIndex;
         private bool isScanning;
@@ -74,6 +76,8 @@ namespace SafeScan
                 Text = "SafeScan Defender",
                 Icon = Icon ?? SystemIcons.Application
             };
+            realTimeProtection = new RealTimeProtection(fileScanner);
+            realTimeProtection.SuspiciousFileDetected += RealTimeProtection_SuspiciousFileDetected;
 
             InitializeTabs();
             InitializeStyles();
@@ -90,8 +94,13 @@ namespace SafeScan
             assistantHelpButton.Click += AssistantHelpButton_Click;
 
             settingsManager.Load();
+            realTimeProtectionCheck.Checked = settingsManager.Settings.RealTimeProtectionEnabled;
             LoadScanFiles();
             ApplyTheme(settingsManager.Settings.ThemeName ?? "SafeScan Dark");
+            if (realTimeProtectionCheck.Checked)
+            {
+                realTimeProtection.Start(directoryScanner.GetDefaultScanTargets());
+            }
         }
 
         private void InitializeTabs()
@@ -191,7 +200,7 @@ namespace SafeScan
             settingsLayout.Controls.Add(expiryDays, 1, 5);
             settingsLayout.Controls.Add(new CheckBox { Text = "Scan archives", Checked = true, ForeColor = Color.White, AutoSize = true }, 1, 6);
             settingsLayout.Controls.Add(new CheckBox { Text = "Scan hidden files", Checked = true, ForeColor = Color.White, AutoSize = true }, 1, 7);
-            settingsLayout.Controls.Add(new CheckBox { Text = "Real-time protection (experimental)", Checked = false, ForeColor = Color.White, AutoSize = true }, 1, 8);
+            settingsLayout.Controls.Add(realTimeProtectionCheck, 1, 8);
             settingsLayout.Controls.Add(new CheckBox { Text = "Automatic quarantine", Checked = true, ForeColor = Color.White, AutoSize = true }, 1, 9);
             settingsLayout.Controls.Add(applySettingsButton, 1, 10);
             settingsLayout.Controls.Add(googleAuthButton, 1, 11);
@@ -259,8 +268,17 @@ namespace SafeScan
             settingsManager.Settings.ThemeName = themeComboBox.SelectedItem?.ToString() ?? "SafeScan Dark";
             settingsManager.Settings.Notifications = notificationsCheck.Checked;
             settingsManager.Settings.MinimizeToTray = allowLocalAccessCheck.Checked;
+            settingsManager.Settings.RealTimeProtectionEnabled = realTimeProtectionCheck.Checked;
             settingsManager.Save();
             ApplyTheme(settingsManager.Settings.ThemeName);
+            if (realTimeProtectionCheck.Checked)
+            {
+                realTimeProtection.Start(directoryScanner.GetDefaultScanTargets());
+            }
+            else
+            {
+                realTimeProtection.Stop();
+            }
             scanStatusLabel.Text = "Settings applied.";
             ShowNotification("Settings applied", "Your SafeScan Defender settings are active.");
         }
@@ -554,10 +572,26 @@ namespace SafeScan
             MessageBox.Show(text, "Roblox Security Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void RealTimeProtection_SuspiciousFileDetected(object? sender, SafeScan.SecurityEngine.Models.ScanResult result)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            BeginInvoke(new Action(() =>
+            {
+                AddResultToGrid(result);
+                ShowNotification("Experimental protection alert", $"{result.Status}: {result.FileName}");
+                scanStatusLabel.Text = $"Real-time alert: {result.Status} - {result.FileName}";
+            }));
+        }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             notifyIcon.Visible = false;
             notifyIcon.Dispose();
+            realTimeProtection.Dispose();
             base.OnFormClosing(e);
         }
     }

@@ -70,6 +70,14 @@
     .screenshot-caption p { margin: 0; font-size: .95rem; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
     .about-box { padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(20, 56, 70, .75), var(--panel)); }
+    .device-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+    .device-card { position: relative; padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    .device-icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 18px; border-radius: 14px; background: rgba(66, 217, 165, .14); color: var(--accent); font-size: 1.55rem; }
+    .device-card h3 { margin: 0 0 5px; } .device-card p { margin: 0 0 18px; font-size: .95rem; }
+    .badge { display: inline-block; padding: 4px 9px; border-radius: 99px; color: var(--accent); background: rgba(66, 217, 165, .12); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .credits { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+    .credit { padding: 20px; border-left: 3px solid var(--accent); background: rgba(66, 217, 165, .06); }
+    .credit a { color: var(--accent); font-weight: 750; }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } * { scroll-behavior: auto !important; } }
@@ -138,13 +146,23 @@
           <a class="button primary" href="SafeScan-v2.0.0-win-x64.zip" download>↓ Download SafeScan 2.0 ZIP</a>
           <a class="button" href="https://github.com/offfactory/safe-scanner-virus-version-2.0/releases">Release notes</a>
         </div>
+        <div class="device-grid">
+          <article class="device-card"><div class="device-icon">▣</div><span class="badge">Available now</span><h3>Windows</h3><p>Full SafeScan Defender 2.0 GUI with local scanning and experimental real-time folder monitoring.</p><a class="button primary" href="SafeScan-v2.0.0-win-x64.zip" download>Download ZIP</a></article>
+          <article class="device-card"><div class="device-icon">●</div><span class="badge">Coming soon</span><h3>macOS</h3><p>A native macOS build is planned. Do not download a fake or unofficial package.</p><span class="button" aria-disabled="true">Coming soon</span></article>
+          <article class="device-card"><div class="device-icon">◆</div><span class="badge">Coming soon</span><h3>Linux</h3><p>A Linux build is planned after the cross-platform scanner and UI are ready.</p><span class="button" aria-disabled="true">Coming soon</span></article>
+        </div>
       </section>
       <section id="about" class="section reveal">
         <div class="eyebrow">About the project</div>
         <h2>Local-first protection, clearly explained.</h2>
         <div class="about-grid">
           <div class="about-box"><h3>What it does</h3><p>SafeScan scans local files with SHA-256 signatures and conservative heuristics. It reports reasons instead of making exaggerated security claims.</p></div>
-          <div class="about-box"><h3>Stay connected</h3><p>Watch the latest videos and updates on <a href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">GlitchOut on YouTube</a>.</p></div>
+          <div class="about-box"><h3>Real-time protection</h3><p>Windows includes an experimental local FileSystemWatcher module for selected folders. It is not a guaranteed replacement for a full security suite.</p></div>
+        </div>
+        <div class="about-box" style="margin-top:22px"><h3>Assistant status</h3><p>The security assistant is <strong>coming soon</strong>. Current releases keep scanning offline and do not send files, passwords, cookies, or tokens to a cloud service.</p></div>
+        <div class="credits">
+          <div class="credit">Built and maintained by <a href="https://github.com/offfactory">OffFactory</a>.</div>
+          <div class="credit">Idea and project inspiration by <a href="https://github.com/imboowa">Immanuel Mboowa (imboowa)</a>.</div>
         </div>
       </section>
     </main>

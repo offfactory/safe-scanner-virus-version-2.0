@@ -8,14 +8,14 @@
   <title>SafeScan Defender 2.0</title>
   <style>
     :root {
-      --bg: #07111f;
-      --panel: rgba(15, 31, 52, .78);
-      --panel-strong: #10243d;
+      --bg: #100b1f;
+      --panel: rgba(34, 22, 58, .78);
+      --panel-strong: #2b1b4a;
       --text: #f5f9ff;
       --muted: #9bb0c9;
-      --accent: #42d9a5;
-      --accent-2: #5aa7ff;
-      --line: rgba(157, 193, 231, .18);
+      --accent: #c084fc;
+      --accent-2: #8b5cf6;
+      --line: rgba(212, 180, 255, .2);
       --shadow: 0 24px 70px rgba(0, 0, 0, .35);
     }
     * { box-sizing: border-box; }
@@ -23,8 +23,8 @@
       margin: 0;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 10%, rgba(66, 217, 165, .18), transparent 32rem),
-        radial-gradient(circle at 90% 0%, rgba(90, 167, 255, .2), transparent 30rem),
+        radial-gradient(circle at 15% 10%, rgba(192, 132, 252, .2), transparent 32rem),
+        radial-gradient(circle at 90% 0%, rgba(139, 92, 246, .22), transparent 30rem),
         var(--bg);
       font: 16px/1.6 Inter, "Segoe UI", sans-serif;
     }
@@ -32,7 +32,7 @@
     .shell { width: min(1120px, calc(100% - 40px)); margin: auto; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
     .brand { display: flex; gap: 12px; align-items: center; font-weight: 800; letter-spacing: .02em; }
-    .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #061323; box-shadow: 0 8px 25px rgba(66, 217, 165, .25); }
+    .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #170b2b; box-shadow: 0 8px 25px rgba(192, 132, 252, .25); }
     nav a { color: var(--muted); text-decoration: none; margin-left: 22px; }
     nav a:hover { color: var(--text); }
     .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 54px; align-items: center; padding: 90px 0 110px; }
@@ -41,10 +41,10 @@
     .hero p { max-width: 650px; color: var(--muted); font-size: 1.2rem; }
     .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
     .button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 19px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; font-weight: 750; }
-    .button.primary { color: #061323; background: var(--accent); border-color: transparent; box-shadow: 0 12px 30px rgba(66, 217, 165, .22); }
+    .button.primary { color: #170b2b; background: var(--accent); border-color: transparent; box-shadow: 0 12px 30px rgba(192, 132, 252, .22); }
     .button:hover { transform: translateY(-2px); }
     .button { transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
-    .button:hover { box-shadow: 0 12px 30px rgba(66, 217, 165, .18); }
+    .button:hover { box-shadow: 0 12px 30px rgba(192, 132, 252, .18); }
     .preview { padding: 24px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(160deg, rgba(26, 60, 91, .9), rgba(10, 24, 42, .9)); box-shadow: var(--shadow); }
     .window-bar { display: flex; gap: 7px; margin-bottom: 25px; }
     .dot { width: 9px; height: 9px; border-radius: 50%; background: #ff7181; }
@@ -72,12 +72,25 @@
     .about-box { padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(20, 56, 70, .75), var(--panel)); }
     .device-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
     .device-card { position: relative; padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
-    .device-icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 18px; border-radius: 14px; background: rgba(66, 217, 165, .14); color: var(--accent); font-size: 1.55rem; }
+    .device-icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 18px; border-radius: 14px; background: rgba(192, 132, 252, .14); color: var(--accent); font-size: 1.55rem; }
     .device-card h3 { margin: 0 0 5px; } .device-card p { margin: 0 0 18px; font-size: .95rem; }
-    .badge { display: inline-block; padding: 4px 9px; border-radius: 99px; color: var(--accent); background: rgba(66, 217, 165, .12); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .badge { display: inline-block; padding: 4px 9px; border-radius: 99px; color: var(--accent); background: rgba(192, 132, 252, .12); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
     .credits { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
-    .credit { padding: 20px; border-left: 3px solid var(--accent); background: rgba(66, 217, 165, .06); }
+    .credit { padding: 20px; border-left: 3px solid var(--accent); background: rgba(192, 132, 252, .06); }
     .credit a { color: var(--accent); font-weight: 750; }
+    .settings-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+    .setting { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+    .setting small { display: block; color: var(--muted); }
+    .switch { width: 42px; height: 24px; border: 0; border-radius: 99px; background: #4b3a68; cursor: pointer; }
+    .switch.on { background: var(--accent-2); }
+    .switch span { display: block; width: 18px; height: 18px; margin: 3px; border-radius: 50%; background: white; transition: transform .2s ease; }
+    .switch.on span { transform: translateX(18px); }
+    .modal { position: fixed; inset: 0; z-index: 5; display: none; place-items: center; padding: 20px; background: rgba(8, 4, 17, .72); }
+    .modal.open { display: grid; }
+    .modal-card { width: min(480px, 100%); padding: 28px; border: 1px solid var(--line); border-radius: 22px; background: #21153a; box-shadow: var(--shadow); }
+    .modal-card h2 { margin-top: 0; }
+    .modal-close { float: right; border: 0; background: transparent; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
+    .notice { padding: 14px 16px; border-radius: 12px; color: #e9d5ff; background: rgba(139, 92, 246, .15); }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } * { scroll-behavior: auto !important; } }
@@ -89,12 +102,12 @@
   <div class="shell">
     <nav>
       <div class="brand"><span class="brand-mark">✓</span> SafeScan Defender</div>
-      <div><a href="#features">Features</a><a href="#screenshots">Screenshots</a><a href="#download">Download</a><a href="#about">About</a></div>
+      <div><a href="#features">Features</a><a href="#screenshots">Screenshots</a><a href="#download">Download</a><a href="#settings">Settings</a><a href="#about">About</a></div>
     </nav>
     <main>
       <section class="hero">
         <div>
-          <div class="eyebrow">Version 2.0 · Windows · Offline-first</div>
+          <div class="eyebrow">Version 2.1 · Windows + macOS · Linux soon</div>
           <h1>Security you can see.</h1>
           <p>A calm, transparent Windows scanner for local files. SafeScan combines hash signatures, conservative heuristics, scan history, quarantine tools, and a dashboard that explains every result.</p>
           <div class="actions">
@@ -148,9 +161,20 @@
         </div>
         <div class="device-grid">
           <article class="device-card"><div class="device-icon">▣</div><span class="badge">Available now</span><h3>Windows</h3><p>Full SafeScan Defender 2.0 GUI with local scanning and experimental real-time folder monitoring.</p><a class="button primary" href="SafeScan-v2.0.0-win-x64.zip" download>Download ZIP</a></article>
-          <article class="device-card"><div class="device-icon">●</div><span class="badge">Coming soon</span><h3>macOS</h3><p>A native macOS build is planned. Do not download a fake or unofficial package.</p><span class="button" aria-disabled="true">Coming soon</span></article>
+          <article class="device-card"><div class="device-icon">●</div><span class="badge">In progress</span><h3>macOS</h3><p>The macOS edition is being prepared as a separate native package. Download availability will be announced here.</p><span class="button" aria-disabled="true">Build in progress</span></article>
           <article class="device-card"><div class="device-icon">◆</div><span class="badge">Coming soon</span><h3>Linux</h3><p>A Linux build is planned after the cross-platform scanner and UI are ready.</p><span class="button" aria-disabled="true">Coming soon</span></article>
         </div>
+      </section>
+      <section id="settings" class="section reveal">
+        <div class="eyebrow">Personal workspace</div>
+        <h2>Settings for your experience.</h2>
+        <p>These website preferences are saved locally in your browser. App settings remain inside SafeScan Defender.</p>
+        <div class="settings-panel">
+          <div class="setting"><div><strong>Reduce motion</strong><small>Use calmer page transitions.</small></div><button class="switch" data-setting="motion" aria-label="Toggle reduced motion"><span></span></button></div>
+          <div class="setting"><div><strong>Purple accent</strong><small>Use the SafeScan violet theme.</small></div><button class="switch on" data-setting="purple" aria-label="Toggle purple theme"><span></span></button></div>
+        </div>
+        <div class="actions"><button class="button primary" id="accountButton">◎ Create account with Google</button></div>
+        <p class="notice">Google account sign-in is coming soon. A secure OAuth client ID and callback service are required before real account creation can be enabled.</p>
       </section>
       <section id="about" class="section reveal">
         <div class="eyebrow">About the project</div>
@@ -168,6 +192,14 @@
     </main>
     <footer><span>SafeScan Defender 2.0</span><span><a href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">GlitchOut on YouTube</a> · Local-first · No telemetry by default</span></footer>
   </div>
+  <div class="modal" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal" aria-label="Close">×</button>
+      <h2 id="accountTitle">Google account integration</h2>
+      <p>SafeScan will support Google sign-in after the secure OAuth configuration is completed. No password is requested on this static website.</p>
+      <a class="button primary" href="https://developers.google.com/identity/gsi/web/guides/overview" target="_blank" rel="noopener">Learn about secure OAuth</a>
+    </div>
+  </div>
   <script>
     const revealItems = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -179,6 +211,20 @@
       });
     }, { threshold: 0.14 });
     revealItems.forEach(item => revealObserver.observe(item));
+    document.querySelectorAll('.switch').forEach(toggle => {
+      const key = `safescan-${toggle.dataset.setting}`;
+      const saved = localStorage.getItem(key);
+      if (saved === 'off') toggle.classList.remove('on');
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('on');
+        localStorage.setItem(key, toggle.classList.contains('on') ? 'on' : 'off');
+        if (toggle.dataset.setting === 'motion') document.documentElement.style.setProperty('--motion', toggle.classList.contains('on') ? '0s' : '.75s');
+      });
+    });
+    const accountModal = document.getElementById('accountModal');
+    document.getElementById('accountButton').addEventListener('click', () => accountModal.classList.add('open'));
+    document.getElementById('closeModal').addEventListener('click', () => accountModal.classList.remove('open'));
+    accountModal.addEventListener('click', event => { if (event.target === accountModal) accountModal.classList.remove('open'); });
   </script>
 </body>
 </html>

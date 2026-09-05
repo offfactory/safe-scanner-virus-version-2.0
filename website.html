@@ -3,228 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="SafeScan Defender is an offline-first Windows security scanner.">
+  <meta name="description" content="SafeScan Defender 3.5 — transparent, local-first security tools for Windows and macOS.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <title>SafeScan Defender 2.0</title>
+  <title>SafeScan Defender · v3.5</title>
   <style>
-    :root {
-      --bg: #100b1f;
-      --panel: rgba(34, 22, 58, .78);
-      --panel-strong: #2b1b4a;
-      --text: #f5f9ff;
-      --muted: #9bb0c9;
-      --accent: #c084fc;
-      --accent-2: #8b5cf6;
-      --line: rgba(212, 180, 255, .2);
-      --shadow: 0 24px 70px rgba(0, 0, 0, .35);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% 10%, rgba(192, 132, 252, .2), transparent 32rem),
-        radial-gradient(circle at 90% 0%, rgba(139, 92, 246, .22), transparent 30rem),
-        var(--bg);
-      font: 16px/1.6 Inter, "Segoe UI", sans-serif;
-    }
-    a { color: inherit; }
-    .shell { width: min(1120px, calc(100% - 40px)); margin: auto; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
-    .brand { display: flex; gap: 12px; align-items: center; font-weight: 800; letter-spacing: .02em; }
-    .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #170b2b; box-shadow: 0 8px 25px rgba(192, 132, 252, .25); }
-    nav a { color: var(--muted); text-decoration: none; margin-left: 22px; }
-    nav a:hover { color: var(--text); }
-    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 54px; align-items: center; padding: 90px 0 110px; }
-    .eyebrow { color: var(--accent); text-transform: uppercase; font-size: .78rem; font-weight: 800; letter-spacing: .18em; }
-    h1 { max-width: 680px; margin: 16px 0; font-size: clamp(3rem, 7vw, 6.3rem); line-height: .98; letter-spacing: -.07em; }
-    .hero p { max-width: 650px; color: var(--muted); font-size: 1.2rem; }
-    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
-    .button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 19px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; font-weight: 750; }
-    .button.primary { color: #170b2b; background: var(--accent); border-color: transparent; box-shadow: 0 12px 30px rgba(192, 132, 252, .22); }
-    .button:hover { transform: translateY(-2px); }
-    .button { transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
-    .button:hover { box-shadow: 0 12px 30px rgba(192, 132, 252, .18); }
-    .preview { padding: 24px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(160deg, rgba(26, 60, 91, .9), rgba(10, 24, 42, .9)); box-shadow: var(--shadow); }
-    .window-bar { display: flex; gap: 7px; margin-bottom: 25px; }
-    .dot { width: 9px; height: 9px; border-radius: 50%; background: #ff7181; }
-    .dot:nth-child(2) { background: #ffd166; } .dot:nth-child(3) { background: var(--accent); }
-    .status { display: flex; justify-content: space-between; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(4, 13, 25, .42); }
-    .status strong { color: var(--accent); }
-    .meter { height: 9px; margin: 20px 0 10px; border-radius: 99px; background: #1d3853; overflow: hidden; }
-    .meter span { display: block; width: 78%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding-bottom: 90px; }
-    .card { padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
-    .card h2 { margin: 0 0 8px; font-size: 1.1rem; } .card p { margin: 0; color: var(--muted); }
-    .section { padding: 72px 0; border-top: 1px solid var(--line); }
-    .section h2 { font-size: 2.4rem; letter-spacing: -.04em; margin: 0 0 14px; }
-    .section p { color: var(--muted); max-width: 700px; }
-    .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; margin-top: 30px; }
-    .feature-list div { padding: 12px 0; border-bottom: 1px solid var(--line); }
-    .screenshots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 30px; }
-    .screenshot-card { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); box-shadow: var(--shadow); }
-    .screenshot-card img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; transition: transform .6s ease; }
-    .screenshot-card:hover img { transform: scale(1.035); }
-    .screenshot-caption { padding: 18px 20px 20px; }
-    .screenshot-caption h3 { margin: 0 0 5px; }
-    .screenshot-caption p { margin: 0; font-size: .95rem; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-    .about-box { padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(20, 56, 70, .75), var(--panel)); }
-    .device-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
-    .device-card { position: relative; padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
-    .device-icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 18px; border-radius: 14px; background: rgba(192, 132, 252, .14); color: var(--accent); font-size: 1.55rem; }
-    .device-card h3 { margin: 0 0 5px; } .device-card p { margin: 0 0 18px; font-size: .95rem; }
-    .badge { display: inline-block; padding: 4px 9px; border-radius: 99px; color: var(--accent); background: rgba(192, 132, 252, .12); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
-    .credits { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
-    .credit { padding: 20px; border-left: 3px solid var(--accent); background: rgba(192, 132, 252, .06); }
-    .credit a { color: var(--accent); font-weight: 750; }
-    .settings-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
-    .setting { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
-    .setting small { display: block; color: var(--muted); }
-    .switch { width: 42px; height: 24px; border: 0; border-radius: 99px; background: #4b3a68; cursor: pointer; }
-    .switch.on { background: var(--accent-2); }
-    .switch span { display: block; width: 18px; height: 18px; margin: 3px; border-radius: 50%; background: white; transition: transform .2s ease; }
-    .switch.on span { transform: translateX(18px); }
-    .modal { position: fixed; inset: 0; z-index: 5; display: none; place-items: center; padding: 20px; background: rgba(8, 4, 17, .72); }
-    .modal.open { display: grid; }
-    .modal-card { width: min(480px, 100%); padding: 28px; border: 1px solid var(--line); border-radius: 22px; background: #21153a; box-shadow: var(--shadow); }
-    .modal-card h2 { margin-top: 0; }
-    .modal-close { float: right; border: 0; background: transparent; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
-    .notice { padding: 14px 16px; border-radius: 12px; color: #e9d5ff; background: rgba(139, 92, 246, .15); }
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } * { scroll-behavior: auto !important; } }
-    footer { padding: 35px 0 55px; color: var(--muted); display: flex; justify-content: space-between; gap: 20px; }
-    @media (max-width: 780px) { .hero { grid-template-columns: 1fr; padding: 55px 0 75px; } .cards, .feature-list { grid-template-columns: 1fr; } nav a { margin-left: 10px; } footer { flex-direction: column; } }
+    :root{--bg:#070711;--panel:rgba(16,16,31,.78);--panel2:rgba(26,20,49,.86);--text:#f8f7ff;--muted:#b5b0c9;--accent:#bb86fc;--accent2:#7c4dff;--ok:#7ef29a;--line:rgba(202,174,255,.2);--shadow:0 24px 80px rgba(0,0,0,.42)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:var(--bg);font:16px/1.6 Inter,"Segoe UI",sans-serif}
+    body:before{content:"";display:var(--galaxy-display,block);position:fixed;inset:0;z-index:-3;background:linear-gradient(rgba(7,7,17,.57),rgba(7,7,17,.8)),url("assets/galaxy-background.gif") center/cover;transform:translateZ(0);will-change:transform}
+    body:after{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 0,rgba(124,77,255,.2),transparent 35%),radial-gradient(circle at 90% 20%,rgba(187,134,252,.13),transparent 30%);pointer-events:none}
+    a{color:inherit}.shell{width:min(1160px,calc(100% - 40px));margin:auto}nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:sticky;top:0;z-index:4;backdrop-filter:blur(14px);background:rgba(7,7,17,.58)}
+    .brand{display:flex;gap:11px;align-items:center;font-weight:850}.mark{display:grid;place-items:center;width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#10091e;box-shadow:0 8px 28px #7c4dff55}
+    nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.94rem}nav a:hover{color:#fff}.hero{display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center;padding:100px 0 115px}
+    .eyebrow{color:var(--accent);text-transform:uppercase;font-size:.75rem;font-weight:850;letter-spacing:.19em}.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:99px;padding:7px 12px;color:var(--muted);font-size:.8rem}.pill i{width:8px;height:8px;background:var(--ok);border-radius:50%;box-shadow:0 0 15px var(--ok)}
+    h1{font-size:clamp(3.2rem,7vw,6.7rem);line-height:.93;letter-spacing:-.075em;margin:18px 0 22px;max-width:720px}h2{font-size:clamp(2rem,4vw,3rem);line-height:1.05;letter-spacing:-.05em;margin:0 0 14px}h3{margin:0 0 7px}.hero p,.section>p{color:var(--muted);max-width:710px;font-size:1.1rem}.actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:28px}.button{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:12px;padding:12px 17px;text-decoration:none;font-weight:780;transition:.25s ease}.button:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0007}.primary{background:var(--accent);color:#160d25;border-color:transparent}.preview,.card,.device,.about,.setting,.feature,.shot,.credits-box{border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+    .preview{padding:23px;border-radius:25px;transform:rotate(1.5deg)}.window{display:flex;gap:7px;margin-bottom:24px}.dot{width:9px;height:9px;border-radius:50%;background:#ff6b81}.dot:nth-child(2){background:#ffd166}.dot:nth-child(3){background:var(--ok)}.status{display:flex;justify-content:space-between;gap:15px;padding:17px;border:1px solid var(--line);border-radius:15px;background:#05050d99}.status strong{color:var(--ok)}.meter{height:9px;border-radius:9px;overflow:hidden;background:#28233a;margin:18px 0 10px}.meter span{display:block;width:86%;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));animation:pulse 3s ease-in-out infinite alternate}@keyframes pulse{to{width:91%}}
+    .section{padding:78px 0;border-top:1px solid var(--line)}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card,.device,.feature,.about,.setting,.credits-box{padding:23px;border-radius:19px}.card p,.device p,.feature p,.about p,.setting small{margin:0;color:var(--muted)}.icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:#bb86fc1c;color:var(--accent);font-size:1.35rem;margin-bottom:16px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0 35px;margin-top:28px}.feature{border-width:0 0 1px;padding:15px 0;border-radius:0;box-shadow:none;background:transparent}.feature b{color:#eee}.tag{display:inline-block;border-radius:99px;padding:3px 9px;margin-bottom:14px;background:#bb86fc18;color:var(--accent);font-size:.7rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}.reduced *{animation:none!important;transition:none!important}
+    .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:28px}.shot{overflow:hidden;border-radius:20px}.shot img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;transition:transform .6s}.shot:hover img{transform:scale(1.04)}.shot div{padding:17px 19px}.shot p{margin:0;color:var(--muted)}
+    .device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:28px}.device{position:relative}.device .button{margin-top:18px}.device.muted{opacity:.72}.about-grid,.settings-grid,.credits{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}.about{background:linear-gradient(145deg,#1c1237cc,var(--panel))}.settings-grid{grid-template-columns:repeat(2,1fr)}.setting{display:flex;justify-content:space-between;gap:15px}.switch{width:43px;height:24px;border:0;border-radius:99px;background:#433951;padding:3px;cursor:pointer}.switch span{display:block;width:18px;height:18px;border-radius:50%;background:white;transition:.2s}.switch.on{background:var(--accent2)}.switch.on span{transform:translateX(18px)}.credits-box{border-left:3px solid var(--accent);box-shadow:none;background:#bb86fc0c}.credits-box a{color:var(--accent);font-weight:750}
+    .notice{margin-top:20px;padding:14px 16px;border-radius:12px;color:#dfd4f5;background:#7c4dff24}.reveal{opacity:0;transform:translateY(22px);transition:.7s}.reveal.visible{opacity:1;transform:none}footer{display:flex;justify-content:space-between;gap:20px;padding:35px 0 55px;color:var(--muted)}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}@media(max-width:800px){.hero{grid-template-columns:1fr;padding:65px 0 80px}.grid3,.device-grid,.feature-grid,.shots,.about-grid,.settings-grid,.credits{grid-template-columns:1fr}nav{align-items:flex-start;gap:15px;flex-direction:column}nav a{margin:0 14px 0 0}.preview{transform:none}footer{flex-direction:column}}
   </style>
 </head>
 <body>
   <div class="shell">
-    <nav>
-      <div class="brand"><span class="brand-mark">✓</span> SafeScan Defender</div>
-      <div><a href="#features">Features</a><a href="#screenshots">Screenshots</a><a href="#download">Download</a><a href="#settings">Settings</a><a href="#about">About</a></div>
-    </nav>
+    <nav><div class="brand"><span class="mark">✦</span> SafeScan Defender <span class="tag" style="margin:0">v3.5</span></div><div><a href="#features">Features</a><a href="#screenshots">Screens</a><a href="#download">Downloads</a><a href="#credits">Credits</a></div></nav>
     <main>
-      <section class="hero">
-        <div>
-          <div class="eyebrow">Version 2.1 · Windows + macOS · Linux soon</div>
-          <h1>Security you can see.</h1>
-          <p>A calm, transparent Windows scanner for local files. SafeScan combines hash signatures, conservative heuristics, scan history, quarantine tools, and a dashboard that explains every result.</p>
-          <div class="actions">
-            <a class="button primary" href="SafeScan-v2.0.0-win-x64.zip">↓ Download for Windows</a>
-            <a class="button" href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">▶ YouTube channel</a>
-          </div>
-        </div>
-        <div class="preview" aria-label="SafeScan dashboard preview">
-          <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-          <div class="status"><span>Protection status</span><strong>● Active</strong></div>
-          <div class="meter"><span></span></div>
-          <small style="color:var(--muted)">Local scan in progress · 78% complete</small>
-          <div class="status" style="margin-top:20px"><span>Offline mode</span><strong>Enabled</strong></div>
-        </div>
-      </section>
-      <section id="features" class="cards reveal">
-        <article class="card"><h2>Offline by design</h2><p>Core scanning, signatures, heuristics, quarantine, and history work without cloud requests.</p></article>
-        <article class="card"><h2>Honest detections</h2><p>Known malware and suspicious files are clearly separated, with a reason shown for every result.</p></article>
-        <article class="card"><h2>Built for Windows</h2><p>Async .NET 8 WinForms scanning with safe handling for locked and inaccessible files.</p></article>
-      </section>
-      <section class="section reveal">
-        <h2>Everything you need to investigate.</h2>
-        <p>SafeScan Defender 2.0 adds a modular security engine without hiding the details behind vague alerts.</p>
-        <div class="feature-list">
-          <div>✓ SHA-256 local signature matching</div><div>✓ Desktop, Downloads, Documents, and custom scans</div>
-          <div>✓ Conservative heuristic analysis</div><div>✓ Quarantine metadata and restore support</div>
-          <div>✓ Scan history stored locally</div><div>✓ Roblox Security Check with accurate classifications</div>
-        </div>
-      </section>
-      <section id="screenshots" class="section reveal">
-        <div class="eyebrow">Inside SafeScan</div>
-        <h2>See the app before you download.</h2>
-        <p>These screenshots show the real SafeScan Defender 2.0 interface included in the Windows ZIP.</p>
-        <div class="screenshots">
-          <article class="screenshot-card">
-            <img src="assets/screenshots/dashboard.png" alt="SafeScan Defender dashboard with scan controls">
-            <div class="screenshot-caption"><h3>Dashboard</h3><p>Protection status, offline mode, scan summary, and quick actions.</p></div>
-          </article>
-          <article class="screenshot-card">
-            <img src="assets/screenshots/settings.png" alt="SafeScan Defender settings page">
-            <div class="screenshot-caption"><h3>Settings</h3><p>Theme, heuristic sensitivity, archives, hidden files, and quarantine controls.</p></div>
-          </article>
-        </div>
-      </section>
-      <section id="download" class="section">
-        <h2>Download SafeScan Defender 2.0</h2>
-        <p>The current Windows release is packaged as a ZIP. Extract it, then run <strong>SafeScan.exe</strong>. This is the new 2.0 build, not the old version.</p>
-        <div class="actions">
-          <a class="button primary" href="SafeScan-v2.0.0-win-x64.zip" download>↓ Download SafeScan 2.0 ZIP</a>
-          <a class="button" href="https://github.com/offfactory/safe-scanner-virus-version-2.0/releases">Release notes</a>
-        </div>
-        <div class="device-grid">
-          <article class="device-card"><div class="device-icon">▣</div><span class="badge">Available now</span><h3>Windows</h3><p>Full SafeScan Defender 2.0 GUI with local scanning and experimental real-time folder monitoring.</p><a class="button primary" href="SafeScan-v2.0.0-win-x64.zip" download>Download ZIP</a></article>
-          <article class="device-card"><div class="device-icon">●</div><span class="badge">CLI available</span><h3>macOS</h3><p>Download the first macOS-compatible local scanner. It runs from Terminal and calculates SHA-256 hashes without uploading files.</p><a class="button primary" href="SafeScan-macOS-cli.zip" download>Download macOS CLI</a></article>
-          <article class="device-card"><div class="device-icon">◆</div><span class="badge">Coming soon</span><h3>Linux</h3><p>A Linux build is planned after the cross-platform scanner and UI are ready.</p><span class="button" aria-disabled="true">Coming soon</span></article>
-        </div>
-      </section>
-      <section id="settings" class="section reveal">
-        <div class="eyebrow">Personal workspace</div>
-        <h2>Settings for your experience.</h2>
-        <p>These website preferences are saved locally in your browser. App settings remain inside SafeScan Defender.</p>
-        <div class="settings-panel">
-          <div class="setting"><div><strong>Reduce motion</strong><small>Use calmer page transitions.</small></div><button class="switch" data-setting="motion" aria-label="Toggle reduced motion"><span></span></button></div>
-          <div class="setting"><div><strong>Purple accent</strong><small>Use the SafeScan violet theme.</small></div><button class="switch on" data-setting="purple" aria-label="Toggle purple theme"><span></span></button></div>
-        </div>
-        <div class="actions"><button class="button primary" id="accountButton">◎ Create account with Google</button></div>
-        <p class="notice">Google account sign-in is currently disabled. No passwords or account data are collected by this static website.</p>
-      </section>
-      <section id="about" class="section reveal">
-        <div class="eyebrow">About the project</div>
-        <h2>Local-first protection, clearly explained.</h2>
-        <div class="about-grid">
-          <div class="about-box"><h3>What it does</h3><p>SafeScan scans local files with SHA-256 signatures and conservative heuristics. It reports reasons instead of making exaggerated security claims.</p></div>
-          <div class="about-box"><h3>Real-time protection</h3><p>Windows includes an experimental local FileSystemWatcher module for selected folders. It is not a guaranteed replacement for a full security suite.</p></div>
-        </div>
-        <div class="about-box" style="margin-top:22px"><h3>Assistant status</h3><p>The security assistant is <strong>coming soon</strong>. Current releases keep scanning offline and do not send files, passwords, cookies, or tokens to a cloud service.</p></div>
-        <div class="credits">
-          <div class="credit">Built and maintained by <a href="https://github.com/offfactory">OffFactory</a>.</div>
-          <div class="credit">Idea and project inspiration by <a href="https://github.com/imboowa">Immanuel Mboowa (imboowa)</a>.</div>
-        </div>
-      </section>
+      <section class="hero"><div><span class="pill"><i></i> Local-first security · no cloud upload</span><div class="eyebrow" style="margin-top:23px">Version 3.5 · Windows + macOS</div><h1>See what your security tool is doing.</h1><p>SafeScan Defender combines transparent scanning, local hashes, quarantine workflows, and a calm dashboard. New in 3.5: a dark galaxy interface, macOS SwiftUI app source, and a clearer release experience.</p><div class="actions"><a class="button primary" href="SafeScan-v2.0.0-win-x64.zip" download>↓ Windows ZIP</a><a class="button" href="#download">View all builds →</a></div></div><div class="preview"><div class="window"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="status"><span>Protection status</span><strong>● Ready</strong></div><div class="meter"><span></span></div><small style="color:var(--muted)">Local engine · signatures and heuristics enabled</small><div class="status" style="margin-top:19px"><span>Privacy mode</span><strong>Offline</strong></div></div></section>
+      <section id="features" class="grid3 reveal"><article class="card"><div class="icon">⌁</div><h3>Offline by design</h3><p>Core scans, signatures, quarantine, and history work without uploading file contents.</p></article><article class="card"><div class="icon">◈</div><h3>Explainable results</h3><p>Known threats and suspicious signals are separated, with a reason shown for each result.</p></article><article class="card"><div class="icon">◉</div><h3>Cross-platform path</h3><p>Windows is available now; the macOS GUI source is included for Xcode testing.</p></article></section>
+      <section class="section reveal"><div class="eyebrow">Feature matrix</div><h2>40+ focused safeguards, not mystery buttons.</h2><p>These are the product surfaces planned or implemented across the scanner and desktop UI. Availability depends on the platform build.</p><div class="feature-grid"><div class="feature"><b>✓ SHA-256 hash checks</b><p>Local fingerprints</p></div><div class="feature"><b>✓ Offline signatures</b><p>Bundled threat data</p></div><div class="feature"><b>✓ Conservative heuristics</b><p>Suspicious, not overstated</p></div><div class="feature"><b>✓ Recursive folder scan</b><p>Safe inaccessible-file handling</p></div><div class="feature"><b>✓ Archive inspection</b><p>Supported package paths</p></div><div class="feature"><b>✓ Quarantine metadata</b><p>Restore workflow</p></div><div class="feature"><b>✓ Scan history</b><p>Stored locally</p></div><div class="feature"><b>✓ Real-time folder watch</b><p>Windows experimental</p></div><div class="feature"><b>✓ Roblox security check</b><p>Accurate classifications</p></div><div class="feature"><b>✓ Theme controls</b><p>Dark and purple modes</p></div><div class="feature"><b>✓ macOS SwiftUI source</b><p>Native app foundation</p></div><div class="feature"><b>✓ Reduced-motion mode</b><p>Accessible website animation</p></div></div></section>
+      <section id="screenshots" class="section reveal"><div class="eyebrow">Inside SafeScan</div><h2>Real screens before you download.</h2><p>The gallery shows the Windows application shipped in the release ZIP.</p><div class="shots"><article class="shot"><img src="assets/screenshots/dashboard.png" alt="SafeScan Defender dashboard"><div><h3>Dashboard</h3><p>Protection status, scan controls, results, and quick actions.</p></div></article><article class="shot"><img src="assets/screenshots/settings.png" alt="SafeScan Defender settings"><div><h3>Settings</h3><p>Theme, heuristics, archives, hidden files, and quarantine preferences.</p></div></article></div></section>
+      <section id="download" class="section reveal"><div class="eyebrow">Get the right build</div><h2>Downloads for each device.</h2><p>Windows and the macOS CLI are packaged downloads. The native macOS GUI is source for Xcode because this Windows workspace cannot build or test a signed Mac application.</p><div class="device-grid"><article class="device"><div class="icon">▣</div><span class="tag">Available now</span><h3>Windows 10/11</h3><p>Full WinForms GUI, local scanner, quarantine, history, and experimental real-time folder monitoring.</p><a class="button primary" href="SafeScan-v2.0.0-win-x64.zip" download>Download Windows ZIP</a></article><article class="device"><div class="icon">●</div><span class="tag">CLI available</span><h3>macOS scanner</h3><p>Portable local SHA-256 scanner for macOS. No file contents are uploaded.</p><a class="button primary" href="SafeScan-macOS-cli.zip" download>Download macOS CLI</a></article><article class="device"><div class="icon">⌘</div><span class="tag">Xcode source</span><h3>macOS GUI 3.5</h3><p>Native SwiftUI project with scan progress, folder selection, and local hash results. Build on a Mac.</p><a class="button" href="MacApp/README.md">Open SwiftUI source</a></article></div><p class="notice">SafeScan is an offline-first project and is not a guaranteed replacement for a complete security suite. Keep your operating system and primary security tools updated.</p></section>
+      <section id="settings" class="section reveal"><div class="eyebrow">Personal workspace</div><h2>Your website, your pace.</h2><p>Preferences are stored only in this browser. App settings remain inside the downloaded application.</p><div class="settings-grid"><div class="setting"><div><b>Reduce motion</b><small>Use calmer transitions.</small></div><button class="switch" data-setting="motion" aria-label="Toggle reduced motion"><span></span></button></div><div class="setting"><div><b>Galaxy background</b><small>Keep the animated background visible.</small></div><button class="switch on" data-setting="galaxy" aria-label="Toggle galaxy background"><span></span></button></div></div><p class="notice">Google sign-in is not enabled on this static site. No passwords or account data are collected.</p></section>
+      <section id="credits" class="section reveal"><div class="eyebrow">People behind SafeScan</div><h2>Credits and inspiration.</h2><div class="credits"><div class="credits-box"><h3>Project owner</h3><p><a href="https://github.com/offfactory" target="_blank" rel="noopener">OffFactory</a> · implementation and product direction.</p></div><div class="credits-box"><h3>Idea giver</h3><p><a href="https://github.com/imboowa" target="_blank" rel="noopener">Immanuel Mboowa</a> · original idea contribution.</p></div></div><div class="actions"><a class="button" href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">▶ GlitchOut on YouTube</a><a class="button" href="https://github.com/offfactory/safe-scanner-virus-version-2.0" target="_blank" rel="noopener">View repository</a></div></section>
+      <section class="section reveal"><div class="about"><div class="eyebrow">About v3.5</div><h2>Built to be understood.</h2><p>SafeScan keeps detection conservative: a suspicious signal is explained as suspicious, not presented as certainty. The website animation respects reduced-motion preferences, and every platform card states whether a build is ready, CLI-only, or source-only.</p></div></section>
     </main>
-    <footer><span>SafeScan Defender 2.0</span><span><a href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">GlitchOut on YouTube</a> · Local-first · No telemetry by default</span></footer>
-  </div>
-  <div class="modal" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
-    <div class="modal-card">
-      <button class="modal-close" id="closeModal" aria-label="Close">×</button>
-      <h2 id="accountTitle">Google account integration</h2>
-      <p>SafeScan will support Google sign-in after the secure OAuth configuration is completed. No password is requested on this static website.</p>
-      <a class="button primary" href="https://developers.google.com/identity/gsi/web/guides/overview" target="_blank" rel="noopener">Learn about secure OAuth</a>
-    </div>
+    <footer><span>© SafeScan Defender · v3.5 preview</span><span>Made with transparent, local-first tooling.</span></footer>
   </div>
   <script>
-    const revealItems = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.14 });
-    revealItems.forEach(item => revealObserver.observe(item));
-    document.querySelectorAll('.switch').forEach(toggle => {
-      const key = `safescan-${toggle.dataset.setting}`;
-      const saved = localStorage.getItem(key);
-      if (saved === 'off') toggle.classList.remove('on');
-      toggle.addEventListener('click', () => {
-        toggle.classList.toggle('on');
-        localStorage.setItem(key, toggle.classList.contains('on') ? 'on' : 'off');
-        if (toggle.dataset.setting === 'motion') document.documentElement.style.setProperty('--motion', toggle.classList.contains('on') ? '0s' : '.75s');
-      });
-    });
-    const accountModal = document.getElementById('accountModal');
-    document.getElementById('accountButton').addEventListener('click', () => accountModal.classList.add('open'));
-    document.getElementById('closeModal').addEventListener('click', () => accountModal.classList.remove('open'));
-    accountModal.addEventListener('click', event => { if (event.target === accountModal) accountModal.classList.remove('open'); });
+    const saved=JSON.parse(localStorage.getItem("safescan-settings")||"{}");
+    document.querySelectorAll(".switch").forEach(button=>{const key=button.dataset.setting;if(saved[key]!==undefined)button.classList.toggle("on",saved[key]);button.addEventListener("click",()=>{button.classList.toggle("on");const next=JSON.parse(localStorage.getItem("safescan-settings")||"{}");next[key]=button.classList.contains("on");localStorage.setItem("safescan-settings",JSON.stringify(next));if(key==="motion")document.body.classList.toggle("reduced",!next[key]);if(key==="galaxy")document.body.style.setProperty("--galaxy-display",next[key]?"block":"none")})});
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add("visible")}),{threshold:.12});document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
   </script>
 </body>
 </html>

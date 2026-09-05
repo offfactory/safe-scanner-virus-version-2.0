@@ -1,0 +1,12 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+C:\Users\BLOXY\Downloads\BEHED\Launcher\Program.cs(80,29): warning CA1416: This call site is reachable on all platforms. 'Type.GetTypeFromProgID(string)' is only supported on: 'windows'. (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1416) [C:\Users\BLOXY\Downloads\BEHED\Launcher\Launcher.csproj]
+  Launcher -> C:\Users\BLOXY\Downloads\BEHED\Launcher\bin\Debug\net8.0\Launcher.dll
+
+Build succeeded.
+
+C:\Users\BLOXY\Downloads\BEHED\Launcher\Program.cs(80,29): warning CA1416: This call site is reachable on all platforms. 'Type.GetTypeFromProgID(string)' is only supported on: 'windows'. (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1416) [C:\Users\BLOXY\Downloads\BEHED\Launcher\Launcher.csproj]
+    1 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:04.72

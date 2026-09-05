@@ -1,0 +1,7 @@
+# Build output
+bin/
+obj/
+release/
+
+# Local application data
+Logs/*.json

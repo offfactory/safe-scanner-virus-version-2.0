@@ -1,0 +1,8 @@
+[
+  {
+    "hash": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "name": "Example Known Malware",
+    "type": "Malware",
+    "severity": "High"
+  }
+]

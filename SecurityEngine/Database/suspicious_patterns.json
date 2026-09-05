@@ -1,0 +1,12 @@
+[
+  "update",
+  "payload",
+  "loader",
+  "dropper",
+  "injector",
+  "autorun",
+  "steam.exe",
+  "rundll32",
+  "mshta",
+  "powershell"
+]

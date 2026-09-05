@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SafeScan Defender is an offline-first Windows security scanner.">
+  <title>SafeScan Defender 2.0</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(15, 31, 52, .78);
+      --panel-strong: #10243d;
+      --text: #f5f9ff;
+      --muted: #9bb0c9;
+      --accent: #42d9a5;
+      --accent-2: #5aa7ff;
+      --line: rgba(157, 193, 231, .18);
+      --shadow: 0 24px 70px rgba(0, 0, 0, .35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(66, 217, 165, .18), transparent 32rem),
+        radial-gradient(circle at 90% 0%, rgba(90, 167, 255, .2), transparent 30rem),
+        var(--bg);
+      font: 16px/1.6 Inter, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
+    .brand { display: flex; gap: 12px; align-items: center; font-weight: 800; letter-spacing: .02em; }
+    .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #061323; box-shadow: 0 8px 25px rgba(66, 217, 165, .25); }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 22px; }
+    nav a:hover { color: var(--text); }
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 54px; align-items: center; padding: 90px 0 110px; }
+    .eyebrow { color: var(--accent); text-transform: uppercase; font-size: .78rem; font-weight: 800; letter-spacing: .18em; }
+    h1 { max-width: 680px; margin: 16px 0; font-size: clamp(3rem, 7vw, 6.3rem); line-height: .98; letter-spacing: -.07em; }
+    .hero p { max-width: 650px; color: var(--muted); font-size: 1.2rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 19px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; font-weight: 750; }
+    .button.primary { color: #061323; background: var(--accent); border-color: transparent; box-shadow: 0 12px 30px rgba(66, 217, 165, .22); }
+    .button:hover { transform: translateY(-2px); }
+    .preview { padding: 24px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(160deg, rgba(26, 60, 91, .9), rgba(10, 24, 42, .9)); box-shadow: var(--shadow); }
+    .window-bar { display: flex; gap: 7px; margin-bottom: 25px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #ff7181; }
+    .dot:nth-child(2) { background: #ffd166; } .dot:nth-child(3) { background: var(--accent); }
+    .status { display: flex; justify-content: space-between; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(4, 13, 25, .42); }
+    .status strong { color: var(--accent); }
+    .meter { height: 9px; margin: 20px 0 10px; border-radius: 99px; background: #1d3853; overflow: hidden; }
+    .meter span { display: block; width: 78%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding-bottom: 90px; }
+    .card { padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+    .card h2 { margin: 0 0 8px; font-size: 1.1rem; } .card p { margin: 0; color: var(--muted); }
+    .section { padding: 72px 0; border-top: 1px solid var(--line); }
+    .section h2 { font-size: 2.4rem; letter-spacing: -.04em; margin: 0 0 14px; }
+    .section p { color: var(--muted); max-width: 700px; }
+    .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; margin-top: 30px; }
+    .feature-list div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+    footer { padding: 35px 0 55px; color: var(--muted); display: flex; justify-content: space-between; gap: 20px; }
+    @media (max-width: 780px) { .hero { grid-template-columns: 1fr; padding: 55px 0 75px; } .cards, .feature-list { grid-template-columns: 1fr; } nav a { margin-left: 10px; } footer { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav>
+      <div class="brand"><span class="brand-mark">✓</span> SafeScan Defender</div>
+      <div><a href="#features">Features</a><a href="https://github.com/behade/behade.github.io">GitHub</a></div>
+    </nav>
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Version 2.0 · Windows · Offline-first</div>
+          <h1>Security you can see.</h1>
+          <p>A calm, transparent Windows scanner for local files. SafeScan combines hash signatures, conservative heuristics, scan history, quarantine tools, and a dashboard that explains every result.</p>
+          <div class="actions">
+            <a class="button primary" href="SafeScan-v2.0.0-win-x64.zip">↓ Download for Windows</a>
+            <a class="button" href="https://github.com/behade/behade.github.io/releases">View releases</a>
+          </div>
+        </div>
+        <div class="preview" aria-label="SafeScan dashboard preview">
+          <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="status"><span>Protection status</span><strong>● Active</strong></div>
+          <div class="meter"><span></span></div>
+          <small style="color:var(--muted)">Local scan in progress · 78% complete</small>
+          <div class="status" style="margin-top:20px"><span>Offline mode</span><strong>Enabled</strong></div>
+        </div>
+      </section>
+      <section id="features" class="cards">
+        <article class="card"><h2>Offline by design</h2><p>Core scanning, signatures, heuristics, quarantine, and history work without cloud requests.</p></article>
+        <article class="card"><h2>Honest detections</h2><p>Known malware and suspicious files are clearly separated, with a reason shown for every result.</p></article>
+        <article class="card"><h2>Built for Windows</h2><p>Async .NET 8 WinForms scanning with safe handling for locked and inaccessible files.</p></article>
+      </section>
+      <section class="section">
+        <h2>Everything you need to investigate.</h2>
+        <p>SafeScan Defender 2.0 adds a modular security engine without hiding the details behind vague alerts.</p>
+        <div class="feature-list">
+          <div>✓ SHA-256 local signature matching</div><div>✓ Desktop, Downloads, Documents, and custom scans</div>
+          <div>✓ Conservative heuristic analysis</div><div>✓ Quarantine metadata and restore support</div>
+          <div>✓ Scan history stored locally</div><div>✓ Roblox Security Check with accurate classifications</div>
+        </div>
+      </section>
+    </main>
+    <footer><span>SafeScan Defender 2.0</span><span>Open source · Local-first · No telemetry by default</span></footer>
+  </div>
+</body>
+</html>

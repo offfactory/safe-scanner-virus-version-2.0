@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SafeScan Defender is an offline-first Windows security scanner.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <title>SafeScan Defender 2.0</title>
   <style>
     :root {
@@ -42,6 +43,8 @@
     .button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 19px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; font-weight: 750; }
     .button.primary { color: #061323; background: var(--accent); border-color: transparent; box-shadow: 0 12px 30px rgba(66, 217, 165, .22); }
     .button:hover { transform: translateY(-2px); }
+    .button { transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+    .button:hover { box-shadow: 0 12px 30px rgba(66, 217, 165, .18); }
     .preview { padding: 24px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(160deg, rgba(26, 60, 91, .9), rgba(10, 24, 42, .9)); box-shadow: var(--shadow); }
     .window-bar { display: flex; gap: 7px; margin-bottom: 25px; }
     .dot { width: 9px; height: 9px; border-radius: 50%; background: #ff7181; }
@@ -58,6 +61,18 @@
     .section p { color: var(--muted); max-width: 700px; }
     .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; margin-top: 30px; }
     .feature-list div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .screenshots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 30px; }
+    .screenshot-card { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); box-shadow: var(--shadow); }
+    .screenshot-card img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; transition: transform .6s ease; }
+    .screenshot-card:hover img { transform: scale(1.035); }
+    .screenshot-caption { padding: 18px 20px 20px; }
+    .screenshot-caption h3 { margin: 0 0 5px; }
+    .screenshot-caption p { margin: 0; font-size: .95rem; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .about-box { padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(20, 56, 70, .75), var(--panel)); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } * { scroll-behavior: auto !important; } }
     footer { padding: 35px 0 55px; color: var(--muted); display: flex; justify-content: space-between; gap: 20px; }
     @media (max-width: 780px) { .hero { grid-template-columns: 1fr; padding: 55px 0 75px; } .cards, .feature-list { grid-template-columns: 1fr; } nav a { margin-left: 10px; } footer { flex-direction: column; } }
   </style>
@@ -66,7 +81,7 @@
   <div class="shell">
     <nav>
       <div class="brand"><span class="brand-mark">✓</span> SafeScan Defender</div>
-      <div><a href="#features">Features</a><a href="#download">Download</a><a href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">YouTube</a><a href="https://github.com/offfactory/safe-scanner-virus-version-2.0">GitHub</a></div>
+      <div><a href="#features">Features</a><a href="#screenshots">Screenshots</a><a href="#download">Download</a><a href="#about">About</a></div>
     </nav>
     <main>
       <section class="hero">
@@ -87,18 +102,33 @@
           <div class="status" style="margin-top:20px"><span>Offline mode</span><strong>Enabled</strong></div>
         </div>
       </section>
-      <section id="features" class="cards">
+      <section id="features" class="cards reveal">
         <article class="card"><h2>Offline by design</h2><p>Core scanning, signatures, heuristics, quarantine, and history work without cloud requests.</p></article>
         <article class="card"><h2>Honest detections</h2><p>Known malware and suspicious files are clearly separated, with a reason shown for every result.</p></article>
         <article class="card"><h2>Built for Windows</h2><p>Async .NET 8 WinForms scanning with safe handling for locked and inaccessible files.</p></article>
       </section>
-      <section class="section">
+      <section class="section reveal">
         <h2>Everything you need to investigate.</h2>
         <p>SafeScan Defender 2.0 adds a modular security engine without hiding the details behind vague alerts.</p>
         <div class="feature-list">
           <div>✓ SHA-256 local signature matching</div><div>✓ Desktop, Downloads, Documents, and custom scans</div>
           <div>✓ Conservative heuristic analysis</div><div>✓ Quarantine metadata and restore support</div>
           <div>✓ Scan history stored locally</div><div>✓ Roblox Security Check with accurate classifications</div>
+        </div>
+      </section>
+      <section id="screenshots" class="section reveal">
+        <div class="eyebrow">Inside SafeScan</div>
+        <h2>See the app before you download.</h2>
+        <p>These screenshots show the real SafeScan Defender 2.0 interface included in the Windows ZIP.</p>
+        <div class="screenshots">
+          <article class="screenshot-card">
+            <img src="assets/screenshots/dashboard.png" alt="SafeScan Defender dashboard with scan controls">
+            <div class="screenshot-caption"><h3>Dashboard</h3><p>Protection status, offline mode, scan summary, and quick actions.</p></div>
+          </article>
+          <article class="screenshot-card">
+            <img src="assets/screenshots/settings.png" alt="SafeScan Defender settings page">
+            <div class="screenshot-caption"><h3>Settings</h3><p>Theme, heuristic sensitivity, archives, hidden files, and quarantine controls.</p></div>
+          </article>
         </div>
       </section>
       <section id="download" class="section">
@@ -109,8 +139,28 @@
           <a class="button" href="https://github.com/offfactory/safe-scanner-virus-version-2.0/releases">Release notes</a>
         </div>
       </section>
+      <section id="about" class="section reveal">
+        <div class="eyebrow">About the project</div>
+        <h2>Local-first protection, clearly explained.</h2>
+        <div class="about-grid">
+          <div class="about-box"><h3>What it does</h3><p>SafeScan scans local files with SHA-256 signatures and conservative heuristics. It reports reasons instead of making exaggerated security claims.</p></div>
+          <div class="about-box"><h3>Stay connected</h3><p>Watch the latest videos and updates on <a href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">GlitchOut on YouTube</a>.</p></div>
+        </div>
+      </section>
     </main>
     <footer><span>SafeScan Defender 2.0</span><span><a href="https://www.youtube.com/@gutlcyedits" target="_blank" rel="noopener">GlitchOut on YouTube</a> · Local-first · No telemetry by default</span></footer>
   </div>
+  <script>
+    const revealItems = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+    revealItems.forEach(item => revealObserver.observe(item));
+  </script>
 </body>
 </html>

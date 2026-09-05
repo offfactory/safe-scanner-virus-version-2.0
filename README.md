@@ -30,5 +30,5 @@ dotnet build Desktop.sln -c Release
 - Use **Settings** to configure themes, offline mode, and scan behavior.
 
 ## Links
-- GitHub: https://github.com/behade/behade.github.io
-- Website: https://behade.github.io
+- GitHub: https://github.com/offfactory/safe-scanner-virus-version-2.0
+- Website: https://offfactory.github.io/safe-scanner-virus-version-2.0/
